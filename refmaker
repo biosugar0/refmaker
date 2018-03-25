@@ -6,7 +6,7 @@ usage="Usage: $CMDNAME -i VCF.vcf.gz -r REFERENCE.fa -o OUT.fa"
 FLG_I="False"
 FLG_O="False"
 FLG_R="False"
-while getopts iorh OPT
+while getopts i:o:r:h OPT
 do
     case $OPT in
         "i" ) FLG_I="TRUE" ; VCF="$OPTARG" ;;
@@ -26,6 +26,7 @@ then
     echo $message "-i";echo $usage 1>&2;exit 1
 elif [ "${FLG_O}" != "TRUE" ]
 then
+    echo ${FLG_O}
     echo $message "-o";echo $usage 1>&2;exit 1
 elif [ "${FLG_R}" != "TRUE" ]
 then 
@@ -33,7 +34,8 @@ then
 fi
 
 # make reference
-tabix -f -p vcf $VCF
-cat $REF | vcf-consensus $VCF > $OUT
+echo "HI"
+#tabix -f -p vcf $VCF
+#cat $REF | vcf-consensus $VCF > $OUT
 
 exit 0
