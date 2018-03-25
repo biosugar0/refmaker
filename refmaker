@@ -1,0 +1,38 @@
+#!/bin/sh
+
+CMDNAME=`basename $0`
+
+usage="Usage: $CMDNAME -i VCF.vcf.gz -r REFERENCE.fa -o OUT.fa"
+FLG_I="False"
+FLG_O="False"
+FLG_R="False"
+while getopts iorh OPT
+do
+    case $OPT in
+        "i" ) FLG_I="TRUE" ; VCF="$OPTARG" ;;
+        "o" ) FLG_O="TRUE" ; OUT="$OPTARG" ;;
+        "r" ) FLG_R="TRUE" ; REF="$OPTARG" ;;
+          :|\?) echo $usage 1>&2
+              exit 1;;
+    esac
+done
+
+# check
+message="option requires an argument"
+
+if [ "${FLG_I}" != "TRUE" ]
+then 
+    echo $message "-i";echo $usage 1>&2;exit 1
+elif [ "${FLG_O}" != "TRUE" ]
+then
+    echo $message "-o";echo $usage 1>&2;exit 1
+elif [ "${FLG_R}" != "TRUE" ]
+then 
+    echo $message "-r";echo $usage 1>&2;exit 1
+fi
+
+# make reference
+tabix -f -p vcf $VCF
+cat $REF | vcf-consensus $VCF > $OUT
+
+exit 0
