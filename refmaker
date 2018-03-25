@@ -34,8 +34,7 @@ then
 fi
 
 # make reference
-echo "HI"
-#tabix -f -p vcf $VCF
-#cat $REF | vcf-consensus $VCF > $OUT
+tabix -f -p vcf $VCF
+cat $REF | vcf-consensus $VCF > $OUT
 
 exit 0
