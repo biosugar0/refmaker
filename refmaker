@@ -12,6 +12,7 @@ do
         "i" ) FLG_I="TRUE" ; VCF="$OPTARG" ;;
         "o" ) FLG_O="TRUE" ; OUT="$OPTARG" ;;
         "r" ) FLG_R="TRUE" ; REF="$OPTARG" ;;
+        "h" ) echo $usage 1>&2 ; exit 1;;
           :|\?) echo $usage 1>&2
               exit 1;;
     esac
